@@ -1,5 +1,8 @@
 <?php
 use SebastianBergmann\Environment\Console;
+if(strpos($_SERVER['HTTP_ORIGIN'], 'javascript') == false){
+  header('Access-Control-Allow-Origin: ' . $_SERVER['HTTP_ORIGIN']);
+}
 
 class Produk_model extends CI_Model {
     public function __construct(){
