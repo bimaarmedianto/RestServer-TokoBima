@@ -6,16 +6,15 @@ class Produk extends RestController {
     parent:: __construct();
     $this->load->model('produk_model', 'produk');
   }
-  
   public function index_get(){
     $id = $this->get('id');   
     if($id === null){
       $page = $this->get('page');
       $page = (empty($page) ? 1 : $page);
       $count_data = $this->produk->count();
-      $count_page = ceil($count_data / 5);
-      $start = ($page - 1) * 5;
-      $list = $this->produk->get(null, 5, $start);
+      $count_page = ceil($count_data);
+      $start = ($page - 1);
+      $list = $this->produk->get(null, $count_data, $start);
       if($list){
         $data = [
           'status' => true,
@@ -45,7 +44,8 @@ class Produk extends RestController {
     $data = [
       'nama_produk' => $this->post('nama_produk', true), 
       'stok_produk' => $this->post('stok_produk', true), 
-      'harga_produk' => $this->post('harga_produk', true)
+      'harga_produk' => $this->post('harga_produk', true),
+      'img_produk' => $this->post('img_produk', true)
     ];
     $insert = $this->produk->insert($data);
     if($insert['status']){
@@ -59,7 +59,8 @@ class Produk extends RestController {
     $data = [
       'nama_produk' => $this->put('nama_produk', true), 
       'stok_produk' => $this->put('stok_produk', true), 
-      'harga_produk' => $this->put('harga_produk', true)
+      'harga_produk' => $this->put('harga_produk', true),
+      'img_produk' => $this->put('img_produk', true)
     ];
     $id = $this->put('id', true);
     if($id === null){
@@ -92,3 +93,4 @@ class Produk extends RestController {
     }
   }
 }
+?>
